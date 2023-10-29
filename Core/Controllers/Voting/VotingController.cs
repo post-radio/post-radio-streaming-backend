@@ -47,7 +47,7 @@ public class VotingController : ControllerBase
     }
 
     [HttpGet("validate")]
-    public async Task<LinkValidationResponse> Validate(LinkValidationRequest request)
+    public async Task<LinkValidationResponse> Validate([FromQuery] LinkValidationRequest request)
     {
         Track? track;
         try

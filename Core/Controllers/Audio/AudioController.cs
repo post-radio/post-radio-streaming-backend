@@ -21,7 +21,7 @@ public class AudioController : ControllerBase
     private static readonly SoundCloudClient Soundcloud = new();
 
     [HttpGet("link")]
-    public async Task<AudioLinkResponse> GetLink(AudioLinkRequest request)
+    public async Task<AudioLinkResponse> GetLink([FromQuery] AudioLinkRequest request)
     {
         var track = await Soundcloud.Tracks.GetAsync(request.AudioUrl);
 
