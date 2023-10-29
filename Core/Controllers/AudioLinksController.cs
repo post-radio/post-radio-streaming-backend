@@ -36,7 +36,7 @@ public class AudioLinksController : ControllerBase
 
         var existingAudioLink = await _database.StringGetAsync(id);
 
-        if (existingAudioLink.IsNullOrEmpty == false)
+        if (System.IO.File.Exists(filePath) == true)
         {
             Console.WriteLine($"Audio is already loaded: {existingAudioLink.ToString()}");
             return new AudioLinkResponse() { AudioLink = existingAudioLink.ToString() };
