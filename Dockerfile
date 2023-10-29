@@ -2,10 +2,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 5000
 
-RUN groupadd -r noncasted && useradd -r -g noncasted noncasted
-RUN mkdir -p /app/audiofiles
-RUN chown -R noncasted:noncasted /app/audiofiles
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Core/Core.csproj", "Core/"]
