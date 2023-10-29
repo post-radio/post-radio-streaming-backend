@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Controllers;
+namespace Core.Controllers.Audio;
 
 public class AudioLinkRequest
 {
     [Required]
-    public string VideoUrl { get; set; }
+    public string AudioUrl { get; set; }
 }
