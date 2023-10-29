@@ -23,7 +23,7 @@ public class AudioLinksController : ControllerBase
     [HttpGet]
     public async Task<AudioLinkResponse> Get(AudioLinkRequest request)
     {
-        Console.WriteLine($"Requested vide: {request.VideoUrl}");
+        Console.WriteLine($"Requested video: {request.VideoUrl}");
         Console.WriteLine($"targetFolder: {_foldersStructure.AudioFolder}");
 
         var track = await Soundcloud.Tracks.GetAsync(request.VideoUrl);
@@ -31,16 +31,25 @@ public class AudioLinksController : ControllerBase
         if (track == null)
             throw new NullReferenceException();
 
-        var id = track.Id;  
+        var id = track.Id.ToString();
         var filePath = $"{_foldersStructure.AudioFolder}{id}.mp3";
+
+        var existingAudioLink = await _database.StringGetAsync(id);
+
+        if (existingAudioLink.IsNullOrEmpty == false)
+        {
+            Console.WriteLine($"Audio is already loaded: {existingAudioLink.ToString()}");
+            return new AudioLinkResponse() { AudioLink = existingAudioLink.ToString() };
+        }
 
         Console.WriteLine(filePath);
         await Soundcloud.DownloadAsync(track, filePath);
 
-        await StoreInRedis(request.VideoUrl, id.ToString());
+        await StoreInRedis(id, filePath);
 
         return new AudioLinkResponse() { AudioLink = filePath };
     }
+
 
     private async Task StoreInRedis(string videoUrl, string audioFilePath)
     {

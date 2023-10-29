@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   redis:
     image: "redis:latest"
     ports:
@@ -10,6 +9,8 @@ services:
       - redis-data:/data
 
   webapp:
+    volumes:
+      - /var/www/audiofiles:/audiofiles
     build:
       context: .
       dockerfile: Dockerfile
