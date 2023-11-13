@@ -2,7 +2,6 @@
 using Core.Entities;
 using SoundCloudExplode;
 using SoundCloudExplode.Common;
-using SoundCloudExplode.Tracks;
 
 namespace Core.Services;
 
@@ -10,6 +9,7 @@ public interface IPlaylistProvider
 {
     Task Setup();
     IReadOnlyList<TrackMetadata> GetTracks();
+    Task<int> Refresh();
 }
 
 public class PlaylistProvider : IPlaylistProvider
@@ -47,5 +47,27 @@ public class PlaylistProvider : IPlaylistProvider
     public IReadOnlyList<TrackMetadata> GetTracks()
     {
         return _tracks;
+    }
+
+    public async Task<int> Refresh()
+    {
+        var tracks = await _client.Playlists.GetTracksAsync(_config.Url);
+        var resultTracks = new List<TrackMetadata>();
+
+        foreach (var track in tracks)
+        {
+            var metadata = track.ToMetadata();
+            
+            if (metadata == null)
+                continue;
+            
+            resultTracks.Add(metadata);
+        }
+
+        Console.WriteLine($"Tracks found: {resultTracks.Count}");
+        
+        _tracks = resultTracks;
+
+        return resultTracks.Count;
     }
 }

@@ -37,8 +37,6 @@ public static class EntitiesExtensions
             return new TrackMetadata() { Url = track.PermalinkUrl.ToString(), Author = author, Name = name };
         }
 
-        Console.WriteLine("Failed to find track");
-        
         return null;
     }
 }
