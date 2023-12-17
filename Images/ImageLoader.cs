@@ -7,13 +7,13 @@ namespace Images;
 
 public interface IImageLoader : IHostedService
 {
-    Task<Image> GetCurrent();
+    Task<Image?> GetCurrent();
 }
 
 public class ImageLoader : IImageLoader
 {
     private DriveService _driveService;
-    private Image _current;
+    private Image? _current;
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -21,6 +21,7 @@ public class ImageLoader : IImageLoader
         await using (var stream = new FileStream("google-drive-credentials.json", FileMode.Open, FileAccess.Read))
         {
             credential = (await GoogleCredential.FromStreamAsync(stream, cancellationToken))
+                .CreateScoped(DriveService.Scope.DriveReadonly)
                 .CreateScoped(DriveService.Scope.Drive);
         }
 
@@ -38,7 +39,7 @@ public class ImageLoader : IImageLoader
         return Task.CompletedTask;
     }
 
-    public Task<Image> GetCurrent()
+    public Task<Image?> GetCurrent()
     {
         return Task.FromResult(_current);
     }
@@ -64,10 +65,19 @@ public class ImageLoader : IImageLoader
         var randomIndex = random.Next(0, fileList.Count);
         var randomImage = fileList[randomIndex];
 
-        var imageBytes = _driveService.HttpClient.GetByteArrayAsync(randomImage.WebContentLink).Result;
+        try
+        {
+            var imageBytes = _driveService.HttpClient.GetByteArrayAsync(randomImage.WebContentLink).Result;
 
-        var stream = new MemoryStream(imageBytes);
-        return new Image(stream.ToArray(), randomImage.MimeType);
+            var stream = new MemoryStream(imageBytes);
+            Console.WriteLine($"{stream.ToArray()} {randomImage.MimeType}");
+            return new Image(stream.ToArray(), randomImage.MimeType);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return null;
+        }
     }
 }
 

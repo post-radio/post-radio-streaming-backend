@@ -19,6 +19,12 @@ public class ImagesController : ControllerBase
     public async Task<HttpResponseMessage> GetRandom()
     {
         var image = await _loader.GetCurrent();
+
+        if (image == null)
+        {
+            Console.WriteLine("No image found");
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
         
         var response = new HttpResponseMessage(HttpStatusCode.OK);
         response.Content = new ByteArrayContent(image.Raw);
