@@ -16,7 +16,7 @@ public class ImagesController : ControllerBase
     private readonly IImageLoader _loader;
 
     [HttpGet("random")]
-    public async Task<HttpResponseMessage> GetLink()
+    public async Task<HttpResponseMessage> GetRandom()
     {
         var image = await _loader.GetCurrent();
         
@@ -27,5 +27,11 @@ public class ImagesController : ControllerBase
         Console.WriteLine($"Response: {image.Raw.Length} {image.MimeType}");
         
         return response;
+    }
+    
+    [HttpGet("verify")]
+    public async Task<bool> Verify()
+    {
+        return true;
     }
 }
