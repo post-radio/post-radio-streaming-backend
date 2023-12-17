@@ -1,4 +1,4 @@
-﻿namespace Core.Configs;
+﻿namespace Audio.Configs;
 
 public class FoldersStructure
 {

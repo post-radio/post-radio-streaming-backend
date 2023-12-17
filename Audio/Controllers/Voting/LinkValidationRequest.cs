@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Controllers.Voting;
+namespace Audio.Controllers.Voting;
 
 public class LinkValidationRequest
 {

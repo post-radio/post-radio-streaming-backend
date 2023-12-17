@@ -1,6 +1,6 @@
 ﻿using SoundCloudExplode.Tracks;
 
-namespace Core.Entities;
+namespace Audio.Entities;
 
 public static class EntitiesExtensions
 {

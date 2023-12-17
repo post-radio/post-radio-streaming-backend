@@ -1,4 +1,6 @@
-﻿using Core.Configs;
+﻿using Audio.Services;
+using Core.Configs;
+using Images;
 using StackExchange.Redis;
 
 namespace Core.Services;
@@ -8,6 +10,8 @@ public static class ServicesExtensions
     public static void AddServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddSingleton<IPlaylistProvider, PlaylistProvider>();
+        builder.Services.AddSingleton<IImageLoader, ImageLoader>();
+        builder.Services.AddHostedService<IImageLoader>(sp => sp.GetRequiredService<IImageLoader>());
     }
     
     public static async Task AddRedis(this WebApplicationBuilder builder)

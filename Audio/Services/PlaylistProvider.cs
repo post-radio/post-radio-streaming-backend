@@ -1,9 +1,9 @@
-﻿using Core.Configs;
-using Core.Entities;
+﻿using Audio.Configs;
+using Audio.Entities;
 using SoundCloudExplode;
 using SoundCloudExplode.Common;
 
-namespace Core.Services;
+namespace Audio.Services;
 
 public interface IPlaylistProvider
 {

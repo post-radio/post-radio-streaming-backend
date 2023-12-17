@@ -1,4 +1,4 @@
-﻿namespace Core.Entities;
+﻿namespace Audio.Entities;
 
 [Serializable]
 public class TrackMetadata

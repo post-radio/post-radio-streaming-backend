@@ -14,4 +14,13 @@
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Audio\Audio.csproj" />
+      <ProjectReference Include="..\Images\Images.csproj" />
+    </ItemGroup>
+
 </Project>

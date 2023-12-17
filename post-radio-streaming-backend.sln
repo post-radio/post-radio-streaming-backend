@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BA29B596-0CA8-430B-8513-2122FC6E1D48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio", "Audio\Audio.csproj", "{67AB82C5-C382-4529-92F8-B6297864EDC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images", "Images\Images.csproj", "{0EAE2E59-4BCC-4997-8DC9-44A42691EA91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{BA29B596-0CA8-430B-8513-2122FC6E1D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA29B596-0CA8-430B-8513-2122FC6E1D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA29B596-0CA8-430B-8513-2122FC6E1D48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AB82C5-C382-4529-92F8-B6297864EDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AB82C5-C382-4529-92F8-B6297864EDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67AB82C5-C382-4529-92F8-B6297864EDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67AB82C5-C382-4529-92F8-B6297864EDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EAE2E59-4BCC-4997-8DC9-44A42691EA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAE2E59-4BCC-4997-8DC9-44A42691EA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAE2E59-4BCC-4997-8DC9-44A42691EA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAE2E59-4BCC-4997-8DC9-44A42691EA91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

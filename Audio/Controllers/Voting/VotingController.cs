@@ -1,11 +1,11 @@
-﻿using Core.Configs;
-using Core.Entities;
-using Core.Services;
+﻿using Audio.Configs;
+using Audio.Entities;
+using Audio.Services;
 using Microsoft.AspNetCore.Mvc;
 using SoundCloudExplode;
 using SoundCloudExplode.Tracks;
 
-namespace Core.Controllers.Voting;
+namespace Audio.Controllers.Voting;
 
 [ApiController]
 [Route("api/voting")]

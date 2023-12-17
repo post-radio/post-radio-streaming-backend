@@ -1,6 +1,6 @@
-﻿using Core.Entities;
+﻿using Audio.Entities;
 
-namespace Core.Controllers.Voting;
+namespace Audio.Controllers.Voting;
 
 [Serializable]
 public class RandomTracksResponse

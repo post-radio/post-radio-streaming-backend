@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Controllers.Audio;
+namespace Audio.Controllers.Audio;
 
 public class RefreshRequestRequest
 {

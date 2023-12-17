@@ -1,4 +1,6 @@
-﻿namespace Core.Configs;
+﻿using Audio.Configs;
+
+namespace Core.Configs;
 
 public static class ConfigsExtensions
 {

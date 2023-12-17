@@ -1,10 +1,10 @@
-﻿using Core.Configs;
-using Core.Services;
+﻿using Audio.Configs;
+using Audio.Services;
 using Microsoft.AspNetCore.Mvc;
 using SoundCloudExplode;
 using StackExchange.Redis;
 
-namespace Core.Controllers.Audio;
+namespace Audio.Controllers.Audio;
 
 [ApiController]
 [Route("api/audio")]
