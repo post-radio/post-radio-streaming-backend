@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Images;
 
@@ -16,28 +14,13 @@ public class ImagesController : ControllerBase
     private readonly IImageLoader _loader;
 
     [HttpGet("random")]
-    public async Task<HttpResponseMessage> GetRandom()
+    public async Task<string> GetRandom()
     {
         var image = await _loader.GetCurrent();
 
         if (image == null)
-        {
-            Console.WriteLine("No image found");
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
-        }
+            return "not-found";
         
-        var response = new HttpResponseMessage(HttpStatusCode.OK);
-        response.Content = new ByteArrayContent(image.Raw);
-        response.Content.Headers.ContentType = new MediaTypeHeaderValue(image.MimeType);
-
-        Console.WriteLine($"Response: {image.Raw.Length} {image.MimeType}");
-        
-        return response;
-    }
-    
-    [HttpGet("verify")]
-    public async Task<bool> Verify()
-    {
-        return true;
+        return image.Link;
     }
 }

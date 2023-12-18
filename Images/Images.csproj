@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Google.Apis.Auth" Version="1.64.0"/>
-        <PackageReference Include="Google.Apis.Drive.v3" Version="1.64.0.3256"/>
+        <PackageReference Include="AWSSDK.S3" Version="3.7.304.10" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9"/>
     </ItemGroup>
