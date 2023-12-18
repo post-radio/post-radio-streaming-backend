@@ -23,7 +23,7 @@ public class ImagesController : ControllerBase
         if (image == null)
         {
             Console.WriteLine("No image found");
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
         
         var response = new HttpResponseMessage(HttpStatusCode.OK);

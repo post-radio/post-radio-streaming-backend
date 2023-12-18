@@ -67,7 +67,7 @@ public class ImageLoader : IImageLoader
 
         try
         {
-            var imageBytes = _driveService.HttpClient.GetByteArrayAsync(randomImage.WebContentLink).Result;
+            var imageBytes = await _driveService.HttpClient.GetByteArrayAsync(randomImage.WebContentLink);
 
             var stream = new MemoryStream(imageBytes);
             Console.WriteLine($"{stream.ToArray()} {randomImage.MimeType}");
