@@ -2,7 +2,6 @@
 using Audio.Services;
 using Microsoft.AspNetCore.Mvc;
 using SoundCloudExplode;
-using StackExchange.Redis;
 
 namespace Audio.Controllers.Audio;
 
@@ -11,16 +10,13 @@ namespace Audio.Controllers.Audio;
 public class AudioController : ControllerBase
 {
     public AudioController(
-        IDatabase database, 
         IPlaylistProvider playlistProvider,
         FoldersStructure foldersStructure)
     {
-        _database = database;
         _playlistProvider = playlistProvider;
         _foldersStructure = foldersStructure;
     }
 
-    private readonly IDatabase _database;
     private readonly IPlaylistProvider _playlistProvider;
     private readonly FoldersStructure _foldersStructure;
 
@@ -39,13 +35,10 @@ public class AudioController : ControllerBase
         var id = track.Id.ToString();
         var filePath = $"{_foldersStructure.AudioFolder}{id}.mp3";
 
-        var existingAudioLink = await _database.StringGetAsync(id);
-
-        if (existingAudioLink.IsNullOrEmpty == false)
-            return new AudioLinkResponse() { AudioUrl = existingAudioLink.ToString() };
+        if (System.IO.File.Exists(filePath))
+            return new AudioLinkResponse() { AudioUrl = filePath };
 
         await Soundcloud.DownloadAsync(track, filePath);
-        await _database.StringSetAsync(id, filePath);
 
         return new AudioLinkResponse() { AudioUrl = filePath };
     }
