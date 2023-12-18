@@ -14,32 +14,6 @@ public static class ServicesExtensions
         builder.Services.AddHostedService<IImageLoader>(sp => sp.GetRequiredService<IImageLoader>());
     }
     
-    public static async Task AddRedis(this WebApplicationBuilder builder)
-    {
-        var services = builder.Services;
-        
-        var configurationRoot = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
-            .Build();
-        
-        var redisConfig = configurationRoot.GetSection("Redis").Get<RedisConfig>();
-
-        var config = new ConfigurationOptions
-        {
-            EndPoints = { redisConfig.RedisEndpoint }
-        };
-
-        var connection = await ConnectionMultiplexer.ConnectAsync(config);
-        var db = connection.GetDatabase();
-
-        if (redisConfig.RedisFlushDbOnStartup == true)
-            db.Execute("FLUSHDB");
-
-        services.AddSingleton(db);
-        services.AddSingleton<IPlaylistProvider, PlaylistProvider>();
-    }
-    
     public static void ConfigureBuilder(this WebApplicationBuilder builder)
     {
         var services = builder.Services;

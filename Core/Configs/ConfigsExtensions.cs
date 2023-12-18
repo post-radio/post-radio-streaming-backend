@@ -13,14 +13,12 @@ public static class ConfigsExtensions
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json")
             .Build();
         
-        var redisConfig = configurationRoot.GetSection("Redis").Get<RedisConfig>();
         var folderStructureConfig = configurationRoot.GetSection("FoldersStructure").Get<FoldersStructure>();
         var playlistConfig = configurationRoot.GetSection("Playlist").Get<PlaylistConfig>();
         
-        if (redisConfig == null || folderStructureConfig == null || playlistConfig == null)
+        if (folderStructureConfig == null || playlistConfig == null)
             throw new NullReferenceException();
 
-        services.AddSingleton(redisConfig);
         services.AddSingleton(folderStructureConfig);
         services.AddSingleton(playlistConfig);
 
