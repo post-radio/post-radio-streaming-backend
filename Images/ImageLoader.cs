@@ -27,7 +27,7 @@ public class ImageLoader : IImageLoader
         _driveService = new DriveService(new BaseClientService.Initializer()
         {
             HttpClientInitializer = credential,
-            ApplicationName = "post-radio"
+            ApplicationName = "post-radio-images"
         });
         
         Task.Run(async () => await RunLoop());
