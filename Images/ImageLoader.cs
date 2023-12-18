@@ -21,8 +21,7 @@ public class ImageLoader : IImageLoader
         await using (var stream = new FileStream("google-drive-credentials.json", FileMode.Open, FileAccess.Read))
         {
             credential = (await GoogleCredential.FromStreamAsync(stream, cancellationToken))
-                .CreateScoped(DriveService.Scope.DriveReadonly)
-                .CreateScoped(DriveService.Scope.Drive);
+                .CreateScoped(DriveService.Scope.DriveReadonly);
         }
 
         _driveService = new DriveService(new BaseClientService.Initializer()
@@ -30,7 +29,7 @@ public class ImageLoader : IImageLoader
             HttpClientInitializer = credential,
             ApplicationName = "post-radio"
         });
-
+        
         Task.Run(async () => await RunLoop());
     }
 
@@ -46,6 +45,8 @@ public class ImageLoader : IImageLoader
 
     private async Task RunLoop()
     {
+        await Task.Delay(5000);
+        
         while (true)
         {
             _current = await LoadRandom();
