@@ -18,7 +18,7 @@ public class ImageLoader : IImageLoader
      
     private Image? _current;
     private AmazonS3Client _client;
-    private readonly DateTime _expirationTime = DateTime.Now.AddMinutes(3f);
+    private DateTime _expirationTime => DateTime.Now.AddMinutes(3f);
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
