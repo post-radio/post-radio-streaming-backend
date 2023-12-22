@@ -15,10 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Images\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Audio\Audio.csproj" />
       <ProjectReference Include="..\Images\Images.csproj" />
     </ItemGroup>

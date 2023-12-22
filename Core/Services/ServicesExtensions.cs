@@ -1,7 +1,6 @@
 ﻿using Audio.Services;
-using Core.Configs;
 using Images;
-using StackExchange.Redis;
+using SoundCloudExplode;
 
 namespace Core.Services;
 
@@ -12,8 +11,11 @@ public static class ServicesExtensions
         builder.Services.AddSingleton<IPlaylistProvider, PlaylistProvider>();
         builder.Services.AddSingleton<IImageLoader, ImageLoader>();
         builder.Services.AddHostedService<IImageLoader>(sp => sp.GetRequiredService<IImageLoader>());
+        builder.Services.AddHostedService<IPlaylistProvider>(sp => sp.GetRequiredService<IPlaylistProvider>());
+        var soundCloud = new SoundCloudClient();
+        builder.Services.AddSingleton(soundCloud);
     }
-    
+
     public static void ConfigureBuilder(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
@@ -22,8 +24,8 @@ public static class ServicesExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
     }
-    
-    public static async Task ConfigureApp(this WebApplication app)
+
+    public static void ConfigureApp(this WebApplication app)
     {
         if (app.Environment.IsDevelopment())
         {
@@ -34,7 +36,5 @@ public static class ServicesExtensions
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
-
-        await app.Services.GetRequiredService<IPlaylistProvider>().Setup();
     }
 }

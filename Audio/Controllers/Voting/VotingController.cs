@@ -11,39 +11,23 @@ namespace Audio.Controllers.Voting;
 [Route("api/voting")]
 public class VotingController : ControllerBase
 {
-    public VotingController(IPlaylistProvider playlist, PlaylistConfig config)
+    public VotingController(SoundCloudClient client, IPlaylistProvider playlist, PlaylistConfig config)
     {
+        _client = client;
         _playlist = playlist;
         _config = config;
     }
 
+    private readonly SoundCloudClient _client;
     private readonly IPlaylistProvider _playlist;
     private readonly PlaylistConfig _config;
-    private readonly Random _random = new();
-    private static readonly SoundCloudClient Soundcloud = new();
 
     [HttpGet("randomList")]
-    public async Task<RandomTracksResponse> GetRandomList()
+    public Task<RandomTracksResponse> GetRandomList()
     {
-        var tracks = _playlist.GetTracks();
-
-        var tracksIds = new List<int>();
-        var selectedTracks = new List<TrackMetadata>();
-
-        for (var i = 0; i < tracks.Count; i++)
-            tracksIds.Add(i);
-
-        for (var i = 0; i < _config.RandomTracksAmount; i++)
-        {
-            var random = _random.Next(0, tracksIds.Count);
-            var trackId = tracksIds[random];
-            tracksIds.RemoveAt(random);
-
-            var track = tracks[trackId];
-            selectedTracks.Add(track);
-        }
-
-        return new RandomTracksResponse() { Tracks = selectedTracks.ToArray() };
+        var selectedTracks = _playlist.GetRandom(_config.RandomTracksAmount);
+        var response = new RandomTracksResponse() { Tracks = selectedTracks.ToArray() };
+        return Task.FromResult(response);
     }
 
     [HttpGet("validate")]
@@ -52,7 +36,7 @@ public class VotingController : ControllerBase
         Track? track;
         try
         {
-            track = await Soundcloud.Tracks.GetAsync(request.AudioUrl);
+            track = await _client.Tracks.GetAsync(request.AudioUrl);
         }
         catch
         {

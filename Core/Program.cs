@@ -8,5 +8,5 @@ builder.AddConfigs();
 builder.ConfigureBuilder();
 
 var app = builder.Build();
-await app.ConfigureApp();
+app.ConfigureApp();
 app.Run();

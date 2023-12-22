@@ -19,7 +19,6 @@ public class AudioController : ControllerBase
 
     private readonly IPlaylistProvider _playlistProvider;
     private readonly FoldersStructure _foldersStructure;
-
     private const string SecurityKey = "912JopaJopa01";
 
     private static readonly SoundCloudClient Soundcloud = new();
