@@ -71,8 +71,16 @@ public class ImageLoader : IImageLoader
             Expires = _expirationTime
         };
 
-        var url = await _client.GetPreSignedURLAsync(preSignedUrlRequest);
-        return new Image(url);
+        try
+        {
+            var url = await _client.GetPreSignedURLAsync(preSignedUrlRequest);
+            return new Image(url);
+        }
+        catch
+        {
+            Console.WriteLine($"Could not find image: {fileName}");
+            return new Image(string.Empty);
+        }
     }
 
     private async Task FillQueue()

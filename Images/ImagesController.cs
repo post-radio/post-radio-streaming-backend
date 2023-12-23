@@ -19,7 +19,7 @@ public class ImagesController : ControllerBase
         var image = await _loader.GetCurrent();
 
         if (image == null)
-            return "not-found";
+            return string.Empty;
         
         return image.Link;
     }

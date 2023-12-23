@@ -8,9 +8,11 @@ public static class ServicesExtensions
 {
     public static void AddServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddSingleton<IMetadataProvider, MetadataProvider>();
         builder.Services.AddSingleton<IPlaylistProvider, PlaylistProvider>();
         builder.Services.AddSingleton<IImageLoader, ImageLoader>();
         builder.Services.AddHostedService<IImageLoader>(sp => sp.GetRequiredService<IImageLoader>());
+        builder.Services.AddHostedService<IMetadataProvider>(sp => sp.GetRequiredService<IMetadataProvider>());
         builder.Services.AddHostedService<IPlaylistProvider>(sp => sp.GetRequiredService<IPlaylistProvider>());
         var soundCloud = new SoundCloudClient();
         builder.Services.AddSingleton(soundCloud);

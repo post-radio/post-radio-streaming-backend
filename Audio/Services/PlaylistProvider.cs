@@ -14,16 +14,22 @@ public interface IPlaylistProvider : IHostedService
 
 public class PlaylistProvider : IPlaylistProvider
 {
+    public PlaylistProvider(
+        PlaylistConfig config,
+        SoundCloudClient soundCloud,
+        IMetadataProvider metadataProvider)
+    {
+        _config = config;
+        _soundCloud = soundCloud;
+        _metadataProvider = metadataProvider;
+    }
+
     private readonly PlaylistConfig _config;
-    private readonly SoundCloudClient _client = new();
+    private readonly SoundCloudClient _soundCloud;
+    private readonly IMetadataProvider _metadataProvider;
     private readonly Queue<TrackMetadata> _queue = new();
 
     private IReadOnlyList<TrackMetadata>? _tracks;
-
-    public PlaylistProvider(PlaylistConfig config)
-    {
-        _config = config;
-    }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -50,12 +56,16 @@ public class PlaylistProvider : IPlaylistProvider
 
     public async Task<int> Refresh()
     {
-        var tracks = await _client.Playlists.GetTracksAsync(_config.Url);
+        var tracks = await _soundCloud.Playlists.GetTracksAsync(_config.Url);
         var resultTracks = new List<TrackMetadata>();
 
         foreach (var track in tracks)
         {
-            var metadata = track.ToMetadata();
+            if (track.PermalinkUrl == null)
+                continue;
+            
+            if (_metadataProvider.TryGetMetadata(track.PermalinkUrl.ToString(), out var metadata) == false)
+                metadata = track.ToMetadata();
 
             if (metadata == null)
                 continue;
