@@ -134,11 +134,6 @@
     "Author": "Electrobirds",
     "Name": "Магнитные полюса"
   },
-  "https://soundcloud.com/ghost666999/ty-ne-ver-slezam": {
-    "Url": "https://soundcloud.com/ghost666999/ty-ne-ver-slezam",
-    "Author": "Черниковская хата",
-    "Name": "Ты не верь слезам"
-  },
   "https://soundcloud.com/kholodnyizvonok/xxgqeasq2u42": {
     "Url": "https://soundcloud.com/kholodnyizvonok/xxgqeasq2u42",
     "Author": "Холодный звонок",
@@ -538,11 +533,6 @@
     "Url": "https://soundcloud.com/miatyiklievier/puskaj-gorit",
     "Author": "Мятый Клевер",
     "Name": "Пускай горит"
-  },
-  "https://soundcloud.com/muzonaga122/snova-bespokoynik": {
-    "Url": "https://soundcloud.com/muzonaga122/snova-bespokoynik",
-    "Author": "Беспокойник",
-    "Name": "Снова"
   },
   "https://soundcloud.com/ivan-fedorchenko-537195245/vargash-karandash": {
     "Url": "https://soundcloud.com/ivan-fedorchenko-537195245/vargash-karandash",
@@ -1978,5 +1968,375 @@
     "Url": "https://soundcloud.com/chernikovskaya_hata/chernikovskaya-hata-belaya-noch",
     "Author": "Chernikovskaya Hata",
     "Name": "Belaya Noch"
+  },
+  "https://soundcloud.com/xm8iuiazbwtl/3-samarskaya": {
+    "Url": "https://soundcloud.com/xm8iuiazbwtl/3-samarskaya",
+    "Author": "Глухой Телефон",
+    "Name": "Самарская"
+  },
+  "https://soundcloud.com/chernikovskaya_hata/zelenoglazoe-taksi": {
+    "Url": "https://soundcloud.com/chernikovskaya_hata/zelenoglazoe-taksi",
+    "Author": "Chernikovskaya Hata",
+    "Name": "Zelenoglazoe Taksi"
+  },
+  "https://soundcloud.com/chernikovskaya_hata/yabloki-na-snegu": {
+    "Url": "https://soundcloud.com/chernikovskaya_hata/yabloki-na-snegu",
+    "Author": "Chernikovskaya Hata",
+    "Name": "Yabloki Na Snegu"
+  },
+  "https://soundcloud.com/chernikovskaya_hata/ty-ne-ver-slezam": {
+    "Url": "https://soundcloud.com/chernikovskaya_hata/ty-ne-ver-slezam",
+    "Author": "Chernikovskaya Hata",
+    "Name": "Ty ne ver slezam"
+  },
+  "https://soundcloud.com/predznanie/8jcuwdl2qskl": {
+    "Url": "https://soundcloud.com/predznanie/8jcuwdl2qskl",
+    "Author": "Predznanie",
+    "Name": "Больные жизнью"
+  },
+  "https://soundcloud.com/predznanie/ip7yee1xk2ev": {
+    "Url": "https://soundcloud.com/predznanie/ip7yee1xk2ev",
+    "Author": "Predznanie",
+    "Name": "Расплата"
+  },
+  "https://soundcloud.com/predznanie/e1o7wjr5kddh": {
+    "Url": "https://soundcloud.com/predznanie/e1o7wjr5kddh",
+    "Author": "Predznanie",
+    "Name": "Меня никто не ждёт"
+  },
+  "https://soundcloud.com/kosmosnapotolke/balkon": {
+    "Url": "https://soundcloud.com/kosmosnapotolke/balkon",
+    "Author": "Kosmos na Potolke",
+    "Name": "Балкон"
+  },
+  "https://soundcloud.com/user-487223369/gran-kasseta": {
+    "Url": "https://soundcloud.com/user-487223369/gran-kasseta",
+    "Author": "Грань",
+    "Name": "Кассета"
+  },
+  "https://soundcloud.com/socr-licu/gran-somneniya": {
+    "Url": "https://soundcloud.com/socr-licu/gran-somneniya",
+    "Author": "Грань",
+    "Name": "Сомнения"
+  },
+  "https://soundcloud.com/oo8oo8/0wwgovxe9wur": {
+    "Url": "https://soundcloud.com/oo8oo8/0wwgovxe9wur",
+    "Author": "Промышленность",
+    "Name": "Молодость"
+  },
+  "https://soundcloud.com/permskykray/my-winter-with-you-svet-tvoix": {
+    "Url": "https://soundcloud.com/permskykray/my-winter-with-you-svet-tvoix",
+    "Author": "PERMSKY KRAY",
+    "Name": "Свет Твоих Глаз"
+  },
+  "https://soundcloud.com/permskykray/outside-years-dozhd-i-groza": {
+    "Url": "https://soundcloud.com/permskykray/outside-years-dozhd-i-groza",
+    "Author": "PERMSKY KRAY",
+    "Name": "Дождь и Гроза"
+  },
+  "https://soundcloud.com/permskykray/comrade-pesenka-pro-druzhbu": {
+    "Url": "https://soundcloud.com/permskykray/comrade-pesenka-pro-druzhbu",
+    "Author": "PERMSKY KRAY",
+    "Name": "Песенка про Дружбу"
+  },
+  "https://soundcloud.com/permskykray/only-the-leaves-listopad": {
+    "Url": "https://soundcloud.com/permskykray/only-the-leaves-listopad",
+    "Author": "PERMSKY KRAY",
+    "Name": "Листопад"
+  },
+  "https://soundcloud.com/permskykray/kriokamera": {
+    "Url": "https://soundcloud.com/permskykray/kriokamera",
+    "Author": "PERMSKY KRAY",
+    "Name": "Криокамера"
+  },
+  "https://soundcloud.com/permskykray/amerika": {
+    "Url": "https://soundcloud.com/permskykray/amerika",
+    "Author": "PERMSKY KRAY",
+    "Name": "Америка"
+  },
+  "https://soundcloud.com/permskykray/cyhabvzpd2ol": {
+    "Url": "https://soundcloud.com/permskykray/cyhabvzpd2ol",
+    "Author": "PERMSKY KRAY",
+    "Name": "Горячий Шоколад"
+  },
+  "https://soundcloud.com/permskykray/lydxo8emfrma": {
+    "Url": "https://soundcloud.com/permskykray/lydxo8emfrma",
+    "Author": "PERMSKY KRAY",
+    "Name": "Снова я Курю"
+  },
+  "https://soundcloud.com/naviernoieradost/hhrt6donql2m": {
+    "Url": "https://soundcloud.com/naviernoieradost/hhrt6donql2m",
+    "Author": "Наверное радость",
+    "Name": "Теряя себя"
+  },
+  "https://soundcloud.com/naviernoieradost/bovvxuozryts": {
+    "Url": "https://soundcloud.com/naviernoieradost/bovvxuozryts",
+    "Author": "Наверное радость",
+    "Name": "Саморазрушение"
+  },
+  "https://soundcloud.com/sheldak_voice/konets-elektroniki-skorost-speed": {
+    "Url": "https://soundcloud.com/sheldak_voice/konets-elektroniki-skorost-speed",
+    "Author": "Конец Электроники",
+    "Name": "Скорость"
+  },
+  "https://soundcloud.com/sheldak_voice/konets-elektroniki-kosmonavt": {
+    "Url": "https://soundcloud.com/sheldak_voice/konets-elektroniki-kosmonavt",
+    "Author": "Конец Электроники",
+    "Name": "Космонавт"
+  },
+  "https://soundcloud.com/sheldak_voice/konets-elektroniki-proletarskaya-gotika": {
+    "Url": "https://soundcloud.com/sheldak_voice/konets-elektroniki-proletarskaya-gotika",
+    "Author": "Конец Электроники",
+    "Name": "Пролетарская Готика"
+  },
+  "https://soundcloud.com/sheldak_voice/konets-elektroniki-boginya-metropolitena": {
+    "Url": "https://soundcloud.com/sheldak_voice/konets-elektroniki-boginya-metropolitena",
+    "Author": "Конец Электроники",
+    "Name": "Богиня Метрополитена"
+  },
+  "https://soundcloud.com/sheldak_voice/konets-elektroniki-soyuz-union": {
+    "Url": "https://soundcloud.com/sheldak_voice/konets-elektroniki-soyuz-union",
+    "Author": "Конец Электроники",
+    "Name": "Союз"
+  },
+  "https://soundcloud.com/user-621277227/v8x0btwyfmio": {
+    "Url": "https://soundcloud.com/user-621277227/v8x0btwyfmio",
+    "Author": "Чернозём и Звёзды",
+    "Name": "Не выходи из комнаты"
+  },
+  "https://soundcloud.com/soczewica/rodina-1": {
+    "Url": "https://soundcloud.com/soczewica/rodina-1",
+    "Author": "Soczewica",
+    "Name": "Родина"
+  },
+  "https://soundcloud.com/soczewica/schaste": {
+    "Url": "https://soundcloud.com/soczewica/schaste",
+    "Author": "Soczewica",
+    "Name": "Счастье"
+  },
+  "https://soundcloud.com/kvartira-nomer-6/urodlivyj-zapax": {
+    "Url": "https://soundcloud.com/kvartira-nomer-6/urodlivyj-zapax",
+    "Author": "Квартира номер 6",
+    "Name": "Уродливый Запах"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/kinoplyonka-filmy-dlya-devochek": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/kinoplyonka-filmy-dlya-devochek",
+    "Author": "КИНОПЛЁНКА",
+    "Name": "Фильмы для девочек"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/kinoplyonka-svoy-put": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/kinoplyonka-svoy-put",
+    "Author": "КИНОПЛЁНКА",
+    "Name": "Свой путь"
+  },
+  "https://soundcloud.com/estietikastarykhpanieliei/nenavizhu": {
+    "Url": "https://soundcloud.com/estietikastarykhpanieliei/nenavizhu",
+    "Author": "Эстетика старых панелей",
+    "Name": "Ненавижу"
+  },
+  "https://soundcloud.com/estietikastarykhpanieliei/osen-ubijcza-czvetov": {
+    "Url": "https://soundcloud.com/estietikastarykhpanieliei/osen-ubijcza-czvetov",
+    "Author": "Эстетика старых панелей",
+    "Name": "Осень убийца цветов"
+  },
+  "https://soundcloud.com/electrotsoy/lyubov": {
+    "Url": "https://soundcloud.com/electrotsoy/lyubov",
+    "Author": "ЭЛЕКТРОЦОЙ",
+    "Name": "Любовь"
+  },
+  "https://soundcloud.com/sotrudnik/nauchnyy-sotrudnik-aut-za-sloem-sloi": {
+    "Url": "https://soundcloud.com/sotrudnik/nauchnyy-sotrudnik-aut-za-sloem-sloi",
+    "Author": "Nauchnyy Sotrudnik, АУТ",
+    "Name": "За слоем слой"
+  },
+  "https://soundcloud.com/bhgyutrthemaster/gl4we61kyvlm": {
+    "Url": "https://soundcloud.com/bhgyutrthemaster/gl4we61kyvlm",
+    "Author": "Аут",
+    "Name": "Кино"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/aut-tvoyo-mesto": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/aut-tvoyo-mesto",
+    "Author": "Аут",
+    "Name": "Твоё место"
+  },
+  "https://soundcloud.com/bhgyutrthemaster/aut-monoxrom": {
+    "Url": "https://soundcloud.com/bhgyutrthemaster/aut-monoxrom",
+    "Author": "Аут",
+    "Name": "Монохром"
+  },
+  "https://soundcloud.com/sqd-gug/aut-pechorin-zima": {
+    "Url": "https://soundcloud.com/sqd-gug/aut-pechorin-zima",
+    "Author": "Аут, Печорин",
+    "Name": "Зима"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/aut-russkaya-khton": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/aut-russkaya-khton",
+    "Author": "Аут",
+    "Name": "Русская хтонь"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-radionoch": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-radionoch",
+    "Author": "Radiotehnika",
+    "Name": "Радионочь"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-polzhizni": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-polzhizni",
+    "Author": "Radiotehnika",
+    "Name": "Полжизни"
+  },
+  "https://soundcloud.com/artyom-kozlov-203766014/6-iskry-letyat": {
+    "Url": "https://soundcloud.com/artyom-kozlov-203766014/6-iskry-letyat",
+    "Author": "Radiotehnika",
+    "Name": "Искры летят"
+  },
+  "https://soundcloud.com/user-487223369/radiotehnika-podokonnik-1": {
+    "Url": "https://soundcloud.com/user-487223369/radiotehnika-podokonnik-1",
+    "Author": "Radiotehnika",
+    "Name": "Подоконник"
+  },
+  "https://soundcloud.com/user-487223369/radiotehnika-izh-412": {
+    "Url": "https://soundcloud.com/user-487223369/radiotehnika-izh-412",
+    "Author": "Radiotehnika",
+    "Name": "Иж-412"
+  },
+  "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-elektronika": {
+    "Url": "https://soundcloud.com/ivan-fedorchenko-853510832/radiotehnika-elektronika",
+    "Author": "Radiotehnika",
+    "Name": "Электроника"
+  },
+  "https://soundcloud.com/artyom-kozlov-203766014/5-mne-nadoelo": {
+    "Url": "https://soundcloud.com/artyom-kozlov-203766014/5-mne-nadoelo",
+    "Author": "Radiotehnika",
+    "Name": "Мне надоело"
+  },
+  "https://soundcloud.com/user-324967523/vq4zbwpfykyn": {
+    "Url": "https://soundcloud.com/user-324967523/vq4zbwpfykyn",
+    "Author": "Автоспорт",
+    "Name": "Я не буду спать"
+  },
+  "https://soundcloud.com/pozharpozhar/nastoyashchee": {
+    "Url": "https://soundcloud.com/pozharpozhar/nastoyashchee",
+    "Author": "Пожар",
+    "Name": "Настоящее"
+  },
+  "https://soundcloud.com/pozharpozhar/vremennoe-imya": {
+    "Url": "https://soundcloud.com/pozharpozhar/vremennoe-imya",
+    "Author": "Пожар",
+    "Name": "Временное имя"
+  },
+  "https://soundcloud.com/pozharpozhar/vgmovtycub3r": {
+    "Url": "https://soundcloud.com/pozharpozhar/vgmovtycub3r",
+    "Author": "Пожар",
+    "Name": "Дрожь"
+  },
+  "https://soundcloud.com/pozharpozhar/okazalos-ya-krichu-odin": {
+    "Url": "https://soundcloud.com/pozharpozhar/okazalos-ya-krichu-odin",
+    "Author": "Пожар",
+    "Name": "Оказалось я кричу один"
+  },
+  "https://soundcloud.com/pozharpozhar/dgfgo7n9l37q": {
+    "Url": "https://soundcloud.com/pozharpozhar/dgfgo7n9l37q",
+    "Author": "Пожар",
+    "Name": "Первая жизнь"
+  },
+  "https://soundcloud.com/itan-woo/svidetelstvo-o-smerti-petlya": {
+    "Url": "https://soundcloud.com/itan-woo/svidetelstvo-o-smerti-petlya",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Петля"
+  },
+  "https://soundcloud.com/rinch-716548049/svidetelstvo-o-smerti": {
+    "Url": "https://soundcloud.com/rinch-716548049/svidetelstvo-o-smerti",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Посвящение"
+  },
+  "https://soundcloud.com/lito97/svidetelstvo-o-smerti-kogda-pogasnet-solntse": {
+    "Url": "https://soundcloud.com/lito97/svidetelstvo-o-smerti-kogda-pogasnet-solntse",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Когда погаснет солнце"
+  },
+  "https://soundcloud.com/user-9286681/bx6nudxyc9cp": {
+    "Url": "https://soundcloud.com/user-9286681/bx6nudxyc9cp",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Привет"
+  },
+  "https://soundcloud.com/user-9286681/q1sjwlysk9zz": {
+    "Url": "https://soundcloud.com/user-9286681/q1sjwlysk9zz",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Японская сказка"
+  },
+  "https://soundcloud.com/user-9286681/ehu28gfiq9tp": {
+    "Url": "https://soundcloud.com/user-9286681/ehu28gfiq9tp",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Осенний бред"
+  },
+  "https://soundcloud.com/eqwrwefewfwef/pbo5scjhycij": {
+    "Url": "https://soundcloud.com/eqwrwefewfwef/pbo5scjhycij",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Петля"
+  },
+  "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-sranozhopaya-feya": {
+    "Url": "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-sranozhopaya-feya",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Сраножопая фея"
+  },
+  "https://soundcloud.com/r0tten-boi/svidetelstvo-o-smerti-u-menya-est-golova": {
+    "Url": "https://soundcloud.com/r0tten-boi/svidetelstvo-o-smerti-u-menya-est-golova",
+    "Author": "Свидетельство О Смерти",
+    "Name": "У меня есть голова"
+  },
+  "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-vernuvshiesya-s-voyny": {
+    "Url": "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-vernuvshiesya-s-voyny",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Вернувшиеся с войны"
+  },
+  "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-rvanaya-dyra": {
+    "Url": "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-rvanaya-dyra",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Рваная дыра"
+  },
+  "https://soundcloud.com/maxim-avramenko-959185477/svidetelstvo-o-smerti": {
+    "Url": "https://soundcloud.com/maxim-avramenko-959185477/svidetelstvo-o-smerti",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Посвящение"
+  },
+  "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-s-pesney-veselo-shagat": {
+    "Url": "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-s-pesney-veselo-shagat",
+    "Author": "Свидетельство О Смерти",
+    "Name": "С песней весело шагать"
+  },
+  "https://soundcloud.com/muck-liar/nicfgoq6x3dz": {
+    "Url": "https://soundcloud.com/muck-liar/nicfgoq6x3dz",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Чуть-чуть меня"
+  },
+  "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-glyadya-na-solntse": {
+    "Url": "https://soundcloud.com/pepcopepper/svidetelstvo-o-smerti-glyadya-na-solntse",
+    "Author": "Свидетельство О Смерти",
+    "Name": "Глядя на солнце"
+  },
+  "https://soundcloud.com/blazh-post-punk/nochnoj-tramvaj": {
+    "Url": "https://soundcloud.com/blazh-post-punk/nochnoj-tramvaj",
+    "Author": "BLAZH",
+    "Name": "Ночной трамвай"
+  },
+  "https://soundcloud.com/blazh-post-punk/blazh-chuzhoy": {
+    "Url": "https://soundcloud.com/blazh-post-punk/blazh-chuzhoy",
+    "Author": "BLAZH",
+    "Name": "Чужой"
+  },
+  "https://soundcloud.com/blazh-post-punk/molodoy-starik-wav-master-2-2": {
+    "Url": "https://soundcloud.com/blazh-post-punk/molodoy-starik-wav-master-2-2",
+    "Author": "BLAZH",
+    "Name": "Молодой старик"
+  },
+  "https://soundcloud.com/blazh-post-punk/iaae": {
+    "Url": "https://soundcloud.com/blazh-post-punk/iaae",
+    "Author": "BLAZH",
+    "Name": "По уши в дерьме"
+  },
+  "https://soundcloud.com/blazh-post-punk/01-1": {
+    "Url": "https://soundcloud.com/blazh-post-punk/01-1",
+    "Author": "BLAZH",
+    "Name": "Который раз"
   }
 }
