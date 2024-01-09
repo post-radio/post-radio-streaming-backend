@@ -1,5 +1,6 @@
 ﻿using Audio.Configs;
 using Audio.Services;
+using Core.Configs;
 using Microsoft.AspNetCore.Mvc;
 using SoundCloudExplode;
 
@@ -11,15 +12,17 @@ public class AudioController : ControllerBase
 {
     public AudioController(
         IPlaylistProvider playlistProvider,
-        FoldersStructure foldersStructure)
+        FoldersStructure foldersStructure,
+        Credentials credentials)
     {
         _playlistProvider = playlistProvider;
         _foldersStructure = foldersStructure;
+        _credentials = credentials;
     }
 
     private readonly IPlaylistProvider _playlistProvider;
     private readonly FoldersStructure _foldersStructure;
-    private const string SecurityKey = "912JopaJopa01";
+    private readonly Credentials _credentials;
 
     private static readonly SoundCloudClient Soundcloud = new();
 
@@ -45,11 +48,11 @@ public class AudioController : ControllerBase
     [HttpGet("refresh")]
     public async Task<RefreshRequestResponse> Refresh([FromQuery] RefreshRequestRequest request)
     {
-        if (request.Key != SecurityKey)
-            return new RefreshRequestResponse() { Result = "Wrong security key provided" };
+        if (request.Key != _credentials.ApiKey)
+            return new RefreshRequestResponse() { Result = Array.Empty<PlaylistRefreshResult>() };
 
         var tracksCount = await _playlistProvider.Refresh();
 
-        return new RefreshRequestResponse() { Result = $"Tracks found: {tracksCount}" };
+        return new RefreshRequestResponse() { Result = tracksCount.ToArray() };
     }
 }

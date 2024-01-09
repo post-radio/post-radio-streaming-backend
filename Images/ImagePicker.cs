@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
+using Core.Configs;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
@@ -12,26 +13,32 @@ public interface IImageLoader : IHostedService
 
 public class ImageLoader : IImageLoader
 {
+    public ImageLoader(Credentials credentials)
+    {
+        _credentials = credentials;
+    }
+
     private const string BucketName = "post-radio";
 
     private readonly Queue<S3Object> _queue = new();
-     
+    private readonly Credentials _credentials;
+
     private Image? _current;
     private AmazonS3Client _client;
     private DateTime _expirationTime => DateTime.Now.AddMinutes(3f);
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var json = await File.ReadAllTextAsync("spaces-credentials.json", cancellationToken);
-        var credentials = JsonConvert.DeserializeObject<SpacesCredentials>(json);
-
         var config = new AmazonS3Config()
         {
             ServiceURL = "https://fra1.digitaloceanspaces.com",
             ForcePathStyle = true
         };
 
-        _client = new AmazonS3Client(credentials.AccessKey, credentials.SecretKey, config);
+        _client = new AmazonS3Client(
+            _credentials.SpacesAccessKey, 
+            _credentials.SpacesSecurityKey,
+            config);
 
         Task.Run(async () => await RunLoop());
     }
@@ -61,7 +68,7 @@ public class ImageLoader : IImageLoader
     {
         if (_queue.Count == 0)
             await FillQueue();
-        
+
         var fileName = _queue.Dequeue().Key;
 
         var preSignedUrlRequest = new GetPreSignedUrlRequest
@@ -87,7 +94,7 @@ public class ImageLoader : IImageLoader
     {
         var listResponse = await _client.ListObjectsV2Async(new ListObjectsV2Request() { BucketName = BucketName });
         var files = listResponse.S3Objects;
-        
+
         var random = new Random();
 
         while (files.Count > 0)

@@ -69,6 +69,7 @@ public class PlaylistProvider : IPlaylistProvider
 
     public async Task<IReadOnlyList<PlaylistRefreshResult>> Refresh()
     {
+        _playlists.Clear();
         var playlists = new Dictionary<string, PlaylistHandler>();
         var playlistsNames = _config.Urls.Keys.Order().ToList();
         var results = new List<PlaylistRefreshResult>();
