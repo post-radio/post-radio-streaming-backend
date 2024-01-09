@@ -22,7 +22,7 @@ public class VotingController : ControllerBase
     private readonly IPlaylistProvider _playlist;
     private readonly PlaylistConfig _config;
 
-    [HttpGet("randomList")]
+    [HttpPost("randomList")]
     public Task<RandomTracksResponse> GetRandomList(RandomTracksRequest request)
     {
         var selectedTracks = _playlist.GetRandom(request.IncludedPlaylists);
