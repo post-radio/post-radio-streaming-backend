@@ -14,7 +14,7 @@ public static class ConfigsExtensions
             .Build();
         
         var folderStructureConfig = configurationRoot.GetSection("FoldersStructure").Get<FoldersStructure>();
-        var playlistConfig = configurationRoot.GetSection("Playlist").Get<PlaylistConfig>();
+        var playlistConfig = configurationRoot.GetSection("Playlists").Get<PlaylistConfig>();
         
         if (folderStructureConfig == null || playlistConfig == null)
             throw new NullReferenceException();

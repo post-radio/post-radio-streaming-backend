@@ -17,26 +17,42 @@ public static class EntitiesExtensions
             var splitTitle = track.Title.Split(" - ");
             name = splitTitle[0];
             author = splitTitle[1];
-
-            return new TrackMetadata() { Url = track.PermalinkUrl.ToString(), Author = author, Name = name };
         }
-
-        if (track.Description != null)
+        else if (track.Description != null)
         {
             name = track.Title;
             author = track.Description;
-
-            return new TrackMetadata() { Url = track.PermalinkUrl.ToString(), Author = author, Name = name };
         }
-        
-        if (track.PublisherMetadata != null)
+        else if (track.PublisherMetadata is { Artist: not null })
         {
             name = track.Title;
             author = track.PublisherMetadata.Artist;
-
-            return new TrackMetadata() { Url = track.PermalinkUrl.ToString(), Author = author, Name = name };
         }
 
-        return null;
+        int duration;
+
+        if (track.Duration != null)
+            duration = (int)track.Duration;
+        else
+            duration = 100000;
+
+        if (duration == 0)
+            throw new NullReferenceException();
+
+        return new TrackMetadata()
+        {
+            Url = track.PermalinkUrl.ToString(),
+            Author = author,
+            Name = name,
+            Duration = duration
+        };
+    }
+
+    public static int GetDuration(this Track track)
+    {
+        if (track.Duration != null)
+            return (int)track.Duration;
+        
+        return 100000;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Audio.Services;
 
 namespace Audio.Controllers.Audio;
 
@@ -11,5 +12,5 @@ public class RefreshRequestRequest
 [Serializable]
 public class RefreshRequestResponse
 {
-    public string Result { get; set; }
+    public PlaylistRefreshResult[] Result { get; set; }
 }

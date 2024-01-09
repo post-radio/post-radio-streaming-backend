@@ -2,6 +2,6 @@
 
 public class PlaylistConfig
 {
-    public string Url { get; set; }
+    public Dictionary<string, string> Urls { get; set; }
     public int RandomTracksAmount { get; set; }
 }

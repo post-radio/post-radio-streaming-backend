@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SoundCloudExplode;
 using SoundCloudExplode.Common;
+using SoundCloudExplode.Tracks;
 
 namespace Audio.Services;
 
@@ -25,7 +26,7 @@ public class MetadataProvider : IMetadataProvider
     private readonly SoundCloudClient _soundCloud;
     private readonly PlaylistConfig _config;
     private readonly Dictionary<string, TrackMetadata> _metadata;
-    private const string _dataPath = "playlist-metadata.json";
+    private const string _pathPostfix = "-playlist-metadata.json";
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -36,38 +37,41 @@ public class MetadataProvider : IMetadataProvider
     {
         return Task.CompletedTask;
     }
-    
+
     public async Task Refresh()
     {
-        var json = await File.ReadAllTextAsync(_dataPath);
-        var metadatas = JsonConvert.DeserializeObject<Dictionary<string, TrackMetadata>>(json);
-
-        var tracks = await _soundCloud.Playlists.GetTracksAsync(_config.Url);
-
-        foreach (var track in tracks)
+        foreach (var (name, _) in _config.Urls)
         {
-            var data = track.ToMetadata();
+            var path = $"{name}{_pathPostfix}";
+            var json = await File.ReadAllTextAsync(path);
+            var metadatas = JsonConvert.DeserializeObject<Dictionary<string, TrackMetadata>>(json);
 
-            if (data == null || metadatas.ContainsKey(data.Url) == true)
-                continue;
+            var tracks = await GetTracks(name);
 
-            metadatas.Add(data.Url, data);
+            foreach (var track in tracks)
+            {
+                var data = track.ToMetadata();
+
+                if (data == null)
+                    continue;
+
+                metadatas.TryAdd(data.Url, data);
+            }
+
+            _metadata.Clear();
+
+            foreach (var (id, data) in metadatas)
+                _metadata.Add(id, data);
+
+            var resultDictionary = new Dictionary<string, TrackMetadata>();
+
+            foreach (var (url, data) in _metadata)
+                resultDictionary.Add(url, data);
+
+            var resultObject = JsonConvert.SerializeObject(resultDictionary);
+
+            await File.WriteAllTextAsync(path, resultObject);
         }
-        
-        _metadata.Clear();
-        
-        foreach (var (id, data) in metadatas)
-            _metadata.Add(id, data);
-
-        var resultMeta = _metadata.OrderBy(t => t.Value.Author);
-        var resultDictionary = new Dictionary<string, TrackMetadata>();
-
-        foreach (var (url, data) in resultMeta)
-            resultDictionary.Add(url, data);
-        
-        var resultObject = JsonConvert.SerializeObject(resultDictionary);
-        
-        await File.WriteAllTextAsync(_dataPath, resultObject);
     }
 
     public bool TryGetMetadata(string url, out TrackMetadata? metadata)
@@ -76,5 +80,13 @@ public class MetadataProvider : IMetadataProvider
             return false;
 
         return true;
+    }
+
+    private async Task<IReadOnlyList<Track>> GetTracks(string playlistName)
+    {
+        var url = _config.Urls[playlistName];
+        var tracks = await _soundCloud.Playlists.GetTracksAsync(url);
+
+        return tracks;
     }
 }

@@ -53,7 +53,7 @@ public class ImageLoader : IImageLoader
         while (true)
         {
             _current = await LoadRandom();
-            await Task.Delay(5000);
+            await Task.Delay(25000);
         }
     }
 

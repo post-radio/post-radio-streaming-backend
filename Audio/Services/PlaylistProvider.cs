@@ -3,13 +3,26 @@ using Audio.Entities;
 using Microsoft.Extensions.Hosting;
 using SoundCloudExplode;
 using SoundCloudExplode.Common;
+using SoundCloudExplode.Tracks;
 
 namespace Audio.Services;
 
 public interface IPlaylistProvider : IHostedService
 {
-    IReadOnlyList<TrackMetadata> GetRandom(int amount);
-    Task<int> Refresh();
+    IReadOnlyList<TrackMetadata> GetRandom(string[] playlists);
+    Task<IReadOnlyList<PlaylistRefreshResult>> Refresh();
+}
+
+public class PlaylistRefreshResult
+{
+    public PlaylistRefreshResult(string name, int tracksCount)
+    {
+        Name = name;
+        TracksCount = tracksCount;
+    }
+    
+    public string Name { get; }
+    public int TracksCount { get; }
 }
 
 public class PlaylistProvider : IPlaylistProvider
@@ -27,13 +40,15 @@ public class PlaylistProvider : IPlaylistProvider
     private readonly PlaylistConfig _config;
     private readonly SoundCloudClient _soundCloud;
     private readonly IMetadataProvider _metadataProvider;
-    private readonly Queue<TrackMetadata> _queue = new();
 
-    private IReadOnlyList<TrackMetadata>? _tracks;
+    private readonly Dictionary<string, PlaylistHandler> _playlists = new();
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        return Refresh();
+        await Refresh();
+
+        foreach (var (_, playlist) in _playlists)
+            Task.Run(() => playlist.IterateQueue());
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
@@ -41,56 +56,109 @@ public class PlaylistProvider : IPlaylistProvider
         return Task.CompletedTask;
     }
 
-    public IReadOnlyList<TrackMetadata> GetRandom(int amount)
+    public IReadOnlyList<TrackMetadata> GetRandom(string[] playlists)
     {
-        if (_queue.Count < amount)
-            FillQueue();
+        playlists = playlists.Order().ToArray();
+        var name = playlists[0];
 
-        var selectedTracks = new List<TrackMetadata>();
+        for (var i = 1; i < playlists.Length; i++)
+            name += $"/{playlists[i]}";
 
-        for (var i = 0; i < _config.RandomTracksAmount; i++)
-            selectedTracks.Add(_queue.Dequeue());
-
-        return selectedTracks;
+        return _playlists[name].GetRandom();
     }
 
-    public async Task<int> Refresh()
+    public async Task<IReadOnlyList<PlaylistRefreshResult>> Refresh()
     {
-        var tracks = await _soundCloud.Playlists.GetTracksAsync(_config.Url);
-        var resultTracks = new List<TrackMetadata>();
+        var playlists = new Dictionary<string, PlaylistHandler>();
+        var playlistsNames = _config.Urls.Keys.Order().ToList();
+        var results = new List<PlaylistRefreshResult>();
+        
+        foreach (var name in playlistsNames)
+        {
+            var playlist = await CreatePlaylist(name);
+            playlists.Add(name, playlist);
+            results.Add(new PlaylistRefreshResult(name, playlist.Tracks.Count));
+        }
+
+        for (var i = 0; i < playlistsNames.Count - 1; i++)
+        {
+            var toMerge = new List<PlaylistHandler>();
+            var name = string.Empty;
+            var headName = playlistsNames[i];
+            toMerge.Add(playlists[headName]);
+            name += headName;
+
+            for (var j = i + 1; j < playlistsNames.Count; j++)
+            {
+                var toMergeName = playlistsNames[j];
+                name += $"/{toMergeName}";
+                toMerge.Add(playlists[toMergeName]);
+                var merged = await CreateMergedPlaylist(toMerge);
+                playlists.Add(name, merged);
+                results.Add(new PlaylistRefreshResult(name, merged.Tracks.Count));
+            }
+        }
+
+        foreach (var (name, playlist) in playlists)
+            _playlists.Add(name, playlist);
+
+        return results;
+    }
+
+    private async Task<PlaylistHandler> CreateMergedPlaylist(IReadOnlyList<PlaylistHandler> playlists)
+    {
+        var allTracks = new List<TrackMetadata>();
+
+        foreach (var playlist in playlists)
+            allTracks.AddRange(playlist.Tracks);
+
+        var randomTracks = new List<TrackMetadata>();
+        var random = new Random();
+
+        while (allTracks.Count != 0)
+        {
+            var index = random.Next(0, allTracks.Count);
+            var track = allTracks[index];
+            randomTracks.Add(track);
+            allTracks.RemoveAt(index);
+        }
+
+        var mergedPlaylist = new PlaylistHandler(randomTracks, _config.RandomTracksAmount);
+        return mergedPlaylist;
+    }
+
+    private async Task<PlaylistHandler> CreatePlaylist(string name)
+    {
+        var tracks = await GetTracks(name);
+        var metadatas = new List<TrackMetadata>();
 
         foreach (var track in tracks)
         {
             if (track.PermalinkUrl == null)
                 continue;
-            
+
             if (_metadataProvider.TryGetMetadata(track.PermalinkUrl.ToString(), out var metadata) == false)
                 metadata = track.ToMetadata();
 
             if (metadata == null)
                 continue;
 
-            resultTracks.Add(metadata);
+            if (metadata.Duration == 0)
+                metadata.Duration = track.GetDuration();
+
+            metadatas.Add(metadata);
         }
 
-        _tracks = resultTracks;
+        var playlist = new PlaylistHandler(metadatas, _config.RandomTracksAmount);
 
-        return resultTracks.Count;
+        return playlist;
     }
 
-    private void FillQueue()
+    private async Task<IReadOnlyList<Track>> GetTracks(string playlist)
     {
-        if (_tracks == null)
-            throw new NullReferenceException();
+        var url = _config.Urls[playlist];
+        var tracks = await _soundCloud.Playlists.GetTracksAsync(url);
 
-        var tracks = new List<TrackMetadata>(_tracks);
-        var random = new Random();
-
-        while (tracks.Count > 0)
-        {
-            var index = random.Next(tracks.Count);
-            _queue.Enqueue(tracks[index]);
-            tracks.RemoveAt(index);
-        }
+        return tracks;
     }
 }

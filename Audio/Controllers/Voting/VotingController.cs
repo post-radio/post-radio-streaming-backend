@@ -23,9 +23,9 @@ public class VotingController : ControllerBase
     private readonly PlaylistConfig _config;
 
     [HttpGet("randomList")]
-    public Task<RandomTracksResponse> GetRandomList()
+    public Task<RandomTracksResponse> GetRandomList(RandomTracksRequest request)
     {
-        var selectedTracks = _playlist.GetRandom(_config.RandomTracksAmount);
+        var selectedTracks = _playlist.GetRandom(request.IncludedPlaylists);
         var response = new RandomTracksResponse() { Tracks = selectedTracks.ToArray() };
         return Task.FromResult(response);
     }
