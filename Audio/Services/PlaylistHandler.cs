@@ -12,44 +12,34 @@ public class PlaylistHandler
 
     private readonly Queue<TrackMetadata> _queue = new();
     private readonly int _outputTracksAmount;
-    private List<TrackMetadata> _currentRandom;
+    private TrackMetadata _currentHead;
     
     public readonly IReadOnlyList<TrackMetadata> Tracks;
-    public IReadOnlyList<TrackMetadata> CurrentRandom => _currentRandom;
 
     public async Task IterateQueue()
     {
         while (true)
         {
-            var random = new List<TrackMetadata>();
-
-            for (var i = 0; i < _outputTracksAmount; i++)
-            {
-                if (_queue.Count == 0)
-                    FillQueue();
-
-                random.Add(_queue.Dequeue());
-            }
-
-            _currentRandom = random;
-
-            var first = random.First();
-            await Task.Delay(first.Duration);
+            if (_queue.Count == 0)
+                FillQueue();
+            
+            _currentHead = _queue.Dequeue();
+            
+            await Task.Delay(_currentHead.Duration);
         }
     }
 
     public IReadOnlyList<TrackMetadata> GetRandom()
     {
-        if (Tracks.Count - 1 < _outputTracksAmount)
+        if (Tracks.Count < _outputTracksAmount)
             throw new ArgumentOutOfRangeException();
         
         var all = new List<TrackMetadata>(Tracks);
-        
         var tracks = new List<TrackMetadata>();
-        var head = Dequeue();
-        tracks.Add(head);
-        
         var random = new Random();
+        
+        all.Remove(_currentHead);
+        tracks.Add(_currentHead);
         
         for (var i = 0; i < _outputTracksAmount - 1; i++)
         {
@@ -61,14 +51,6 @@ public class PlaylistHandler
         return tracks;
     }
     
-    private TrackMetadata Dequeue()
-    {
-        if (_queue.Count == 0)
-            FillQueue();
-
-        return _queue.Dequeue();
-    }
-
     private void FillQueue()
     {
         var tracks = new List<TrackMetadata>(Tracks);
