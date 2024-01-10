@@ -69,7 +69,11 @@ public class PlaylistProvider : IPlaylistProvider
 
     public async Task<IReadOnlyList<PlaylistRefreshResult>> Refresh()
     {
+        foreach (var (_, playlist) in _playlists)
+            playlist.Dispose();
+        
         _playlists.Clear();
+        
         var playlists = new Dictionary<string, PlaylistHandler>();
         var playlistsNames = _config.Urls.Keys.Order().ToList();
         var results = new List<PlaylistRefreshResult>();
@@ -103,6 +107,9 @@ public class PlaylistProvider : IPlaylistProvider
         foreach (var (name, playlist) in playlists)
             _playlists.Add(name, playlist);
 
+        foreach (var (_, playlist) in _playlists)
+            Task.Run(() => playlist.IterateQueue());
+        
         return results;
     }
 
@@ -113,6 +120,7 @@ public class PlaylistProvider : IPlaylistProvider
         foreach (var playlist in playlists)
             allTracks.AddRange(playlist.Tracks);
 
+        
         var randomTracks = new List<TrackMetadata>();
         var random = new Random();
 

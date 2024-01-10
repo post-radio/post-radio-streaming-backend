@@ -11,10 +11,11 @@ public class PlaylistHandler
     }
 
     private readonly Queue<TrackMetadata> _queue = new();
+    private readonly CancellationTokenSource _cancellation = new();
     private readonly int _outputTracksAmount;
-    private TrackMetadata _currentHead;
-    
     public readonly IReadOnlyList<TrackMetadata> Tracks;
+    
+    private TrackMetadata _currentHead;
 
     public async Task IterateQueue()
     {
@@ -25,8 +26,14 @@ public class PlaylistHandler
             
             _currentHead = _queue.Dequeue();
             
-            await Task.Delay(_currentHead.Duration);
+            await Task.Delay(_currentHead.Duration, _cancellation.Token);
         }
+    }
+
+    public void Dispose()
+    {
+        _cancellation.Cancel();
+        _cancellation.Dispose();
     }
 
     public IReadOnlyList<TrackMetadata> GetRandom()
