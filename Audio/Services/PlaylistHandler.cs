@@ -25,8 +25,8 @@ public class PlaylistHandler
                 FillQueue();
             
             _currentHead = _queue.Dequeue();
-            
-            await Task.Delay(_currentHead.Duration, _cancellation.Token);
+            var duration = (int)(_currentHead.Duration * 0.8f);
+            await Task.Delay(duration, _cancellation.Token);
         }
     }
 
