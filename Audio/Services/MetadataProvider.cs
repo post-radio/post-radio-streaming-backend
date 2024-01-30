@@ -40,9 +40,13 @@ public class MetadataProvider : IMetadataProvider
 
     public async Task Refresh()
     {
+        _metadata.Clear();
+
         foreach (var (name, _) in _config.Urls)
         {
             var path = $"{name}{_pathPostfix}";
+            
+            Console.WriteLine($"Refresh meta for: {name} path: {path}");
             var json = await File.ReadAllTextAsync(path);
             var metadatas = JsonConvert.DeserializeObject<Dictionary<string, TrackMetadata>>(json);
 
@@ -58,20 +62,16 @@ public class MetadataProvider : IMetadataProvider
                 metadatas.TryAdd(data.Url, data);
             }
 
-            _metadata.Clear();
+            foreach (var (url, data) in metadatas)
+                _metadata.TryAdd(url, data);
 
-            foreach (var (id, data) in metadatas)
-                _metadata.Add(id, data);
-
-            var resultDictionary = new Dictionary<string, TrackMetadata>();
-
-            foreach (var (url, data) in _metadata)
-                resultDictionary.Add(url, data);
-
-            var resultObject = JsonConvert.SerializeObject(resultDictionary);
+            var resultObject = JsonConvert.SerializeObject(metadatas);
 
             await File.WriteAllTextAsync(path, resultObject);
+            Console.WriteLine($"Refresh meta for: {name} path: {path}");
         }
+        
+        Console.WriteLine($"Total tracks in metadata: {_metadata.Count}");
     }
 
     public bool TryGetMetadata(string url, out TrackMetadata? metadata)
