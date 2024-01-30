@@ -16,17 +16,22 @@ public interface IMetadataProvider : IHostedService
 
 public class MetadataProvider : IMetadataProvider
 {
-    public MetadataProvider(SoundCloudClient soundCloud, PlaylistConfig config)
+    public MetadataProvider(
+        SoundCloudClient soundCloud,
+        PlaylistConfig config,
+        FoldersStructure foldersStructure)
     {
         _soundCloud = soundCloud;
         _config = config;
+        _foldersStructure = foldersStructure;
         _metadata = new Dictionary<string, TrackMetadata>();
     }
 
     private readonly SoundCloudClient _soundCloud;
     private readonly PlaylistConfig _config;
+    private readonly FoldersStructure _foldersStructure;
     private readonly Dictionary<string, TrackMetadata> _metadata;
-    private const string _pathPostfix = "-playlist-metadata.json";
+    private const string PathPostfix = "-playlist-metadata.json";
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -44,9 +49,16 @@ public class MetadataProvider : IMetadataProvider
 
         foreach (var (name, _) in _config.Urls)
         {
-            var path = $"{name}{_pathPostfix}";
+            var path = $"{_foldersStructure.AudioFolder}{name}{PathPostfix}";
             
             Console.WriteLine($"Refresh meta for: {name} path: {path}");
+            if (File.Exists(path) == false)
+            {
+                var tmp = JsonConvert.SerializeObject(new Dictionary<string, TrackMetadata>());
+
+                await File.WriteAllTextAsync(path, tmp);
+            }
+            
             var json = await File.ReadAllTextAsync(path);
             var metadatas = JsonConvert.DeserializeObject<Dictionary<string, TrackMetadata>>(json);
 
