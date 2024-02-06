@@ -81,6 +81,8 @@ public class PlaylistProvider : IPlaylistProvider
 
     public async Task<IReadOnlyList<PlaylistRefreshResult>> Refresh()
     {
+        await _metadataProvider.Refresh();
+        
         foreach (var (_, playlist) in _playlists)
             playlist.Dispose();
         

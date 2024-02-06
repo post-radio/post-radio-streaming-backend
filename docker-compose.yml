@@ -1,13 +1,6 @@
 version: '3.8'
 
 services:
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-
   webapp:
     volumes:
       - /var/www/audiofiles:/audiofiles
@@ -16,10 +9,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:80"
-    depends_on:
-      - redis
-    environment:
-      - REDIS_URL=redis:6379
-
-volumes:
-  redis-data:
