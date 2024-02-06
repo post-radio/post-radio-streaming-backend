@@ -40,11 +40,15 @@ public class MetadataProvider : IMetadataProvider
 
     public async Task Refresh()
     {
+        Console.WriteLine("On metadata refresh");
+        
         foreach (var (name, _) in _config.Urls)
         {
             var path = $"{name}{_pathPostfix}";
             var json = await File.ReadAllTextAsync(path);
             var metadatas = JsonConvert.DeserializeObject<Dictionary<string, TrackMetadata>>(json);
+            
+            Console.WriteLine($"Metadatas found in file: {path} {metadatas.Count}");
 
             var tracks = await GetTracks(name);
 

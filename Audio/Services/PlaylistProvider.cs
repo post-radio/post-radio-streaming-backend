@@ -10,6 +10,7 @@ namespace Audio.Services;
 public interface IPlaylistProvider : IHostedService
 {
     IReadOnlyList<TrackMetadata> GetRandom(string[] playlists);
+    IReadOnlyList<TrackMetadata> GetAll();
     Task<IReadOnlyList<PlaylistRefreshResult>> Refresh();
 }
 
@@ -42,6 +43,7 @@ public class PlaylistProvider : IPlaylistProvider
     private readonly IMetadataProvider _metadataProvider;
 
     private readonly Dictionary<string, PlaylistHandler> _playlists = new();
+    private readonly List<PlaylistHandler> _sourcePlaylists = new();
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -67,6 +69,16 @@ public class PlaylistProvider : IPlaylistProvider
         return _playlists[name].GetRandom();
     }
 
+    public IReadOnlyList<TrackMetadata> GetAll()
+    {
+        var result = new List<TrackMetadata>();
+
+        foreach (var playlist in _sourcePlaylists)
+            result.AddRange(playlist.Tracks);
+
+        return result;
+    }
+
     public async Task<IReadOnlyList<PlaylistRefreshResult>> Refresh()
     {
         foreach (var (_, playlist) in _playlists)
@@ -84,6 +96,9 @@ public class PlaylistProvider : IPlaylistProvider
             playlists.Add(name, playlist);
             results.Add(new PlaylistRefreshResult(name, playlist.Tracks.Count));
         }
+
+        foreach (var (_, playlist) in playlists)
+            _sourcePlaylists.Add(playlist);
 
         for (var i = 0; i < playlistsNames.Count - 1; i++)
         {

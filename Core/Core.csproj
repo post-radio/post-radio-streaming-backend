@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Audio\Audio.csproj" />
       <ProjectReference Include="..\Images\Images.csproj" />
+      <ProjectReference Include="..\Tools\Tools.csproj" />
     </ItemGroup>
 
 </Project>
