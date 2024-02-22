@@ -1,4 +1,4 @@
-﻿namespace Core.Configs;
+﻿namespace Shared;
 
 public class Credentials
 {

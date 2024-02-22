@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Shared;
 
 namespace Images;
 
@@ -9,9 +10,14 @@ public interface IImageLoader : IHostedService
 
 public class ImageLoader : IImageLoader
 {
-    private const string ImagesDirectory = "/var/www/images/";
+    public ImageLoader(FoldersStructure foldersStructure)
+    {
+        _foldersStructure = foldersStructure;
+    }
+
     private const string Domain = "https://streaming.post-radio.io/images/";
     
+    private readonly FoldersStructure _foldersStructure;
     private readonly List<string> _images = new();
     private Image? _current;
 
@@ -59,7 +65,7 @@ public class ImageLoader : IImageLoader
     {
         _images.Clear();
 
-        var files = Directory.GetFiles(ImagesDirectory, "*.*", SearchOption.TopDirectoryOnly)
+        var files = Directory.GetFiles(_foldersStructure.ImagesFoled, "*.*", SearchOption.TopDirectoryOnly)
             .Select(Path.GetFileName).ToList();
 
         _images.AddRange(files);

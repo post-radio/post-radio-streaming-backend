@@ -2,6 +2,7 @@
 using Audio.Entities;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Shared;
 using SoundCloudExplode;
 using SoundCloudExplode.Common;
 using SoundCloudExplode.Tracks;

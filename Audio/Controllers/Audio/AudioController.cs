@@ -1,7 +1,7 @@
 ﻿using Audio.Configs;
 using Audio.Services;
-using Core.Configs;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using SoundCloudExplode;
 
 namespace Audio.Controllers.Audio;
