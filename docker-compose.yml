@@ -4,6 +4,7 @@ services:
   webapp:
     volumes:
       - /var/www/audiofiles:/audiofiles
+      - /var/www/images:/images
     build:
       context: .
       dockerfile: Dockerfile
