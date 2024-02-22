@@ -1,8 +1,4 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
-using Core.Configs;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Hosting;
 
 namespace Images;
 
@@ -13,34 +9,16 @@ public interface IImageLoader : IHostedService
 
 public class ImageLoader : IImageLoader
 {
-    public ImageLoader(Credentials credentials)
-    {
-        _credentials = credentials;
-    }
-
-    private const string BucketName = "post-radio";
-
-    private readonly Queue<S3Object> _queue = new();
-    private readonly Credentials _credentials;
-
+    private const string ImagesDirectory = "/var/www/images/";
+    private const string Domain = "https://streaming.post-radio.io/images/";
+    
+    private readonly List<string> _images = new();
     private Image? _current;
-    private AmazonS3Client _client;
-    private DateTime _expirationTime => DateTime.Now.AddMinutes(3f);
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
-        var config = new AmazonS3Config()
-        {
-            ServiceURL = "https://fra1.digitaloceanspaces.com",
-            ForcePathStyle = true
-        };
-
-        _client = new AmazonS3Client(
-            _credentials.SpacesAccessKey, 
-            _credentials.SpacesSecurityKey,
-            config);
-
-        Task.Run(async () => await RunLoop());
+        Task.Run(async () => await RunLoop(), cancellationToken);
+        return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
@@ -59,50 +37,32 @@ public class ImageLoader : IImageLoader
 
         while (true)
         {
-            _current = await LoadRandom();
+            _current = LoadRandom();
             await Task.Delay(25000);
         }
     }
 
-    private async Task<Image> LoadRandom()
+    private Image LoadRandom()
     {
-        if (_queue.Count == 0)
-            await FillQueue();
-
-        var fileName = _queue.Dequeue().Key;
-
-        var preSignedUrlRequest = new GetPreSignedUrlRequest
-        {
-            BucketName = BucketName,
-            Key = fileName,
-            Expires = _expirationTime
-        };
-
-        try
-        {
-            var url = await _client.GetPreSignedURLAsync(preSignedUrlRequest);
-            return new Image(url);
-        }
-        catch
-        {
-            Console.WriteLine($"Could not find image: {fileName}");
-            return new Image(string.Empty);
-        }
-    }
-
-    private async Task FillQueue()
-    {
-        var listResponse = await _client.ListObjectsV2Async(new ListObjectsV2Request() { BucketName = BucketName });
-        var files = listResponse.S3Objects;
+        if (_images.Count == 0)
+            FillQueue();
 
         var random = new Random();
+        var index = random.Next(_images.Count);
+        var fileName = _images[index];
+        var url = $"{Domain}{fileName}";
 
-        while (files.Count > 0)
-        {
-            var index = random.Next(files.Count);
-            _queue.Enqueue(files[index]);
-            files.RemoveAt(index);
-        }
+        return new Image(url);
+    }
+
+    private void FillQueue()
+    {
+        _images.Clear();
+
+        var files = Directory.GetFiles(ImagesDirectory, "*.*", SearchOption.TopDirectoryOnly)
+            .Select(Path.GetFileName).ToList();
+
+        _images.AddRange(files);
     }
 }
 
